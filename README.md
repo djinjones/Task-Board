@@ -26,9 +26,21 @@ This is a simple website for creating and storing tasks. It also gives the abili
 
 
 ## Screenshots
+### Input a title, date and a description:
+![TaskBoardModal](./assets/images/taskboardmodal.png)
+#### New task will automatically go into the 'Not Started' column
+#### Tasks can be moved by dragging, to another column
+#### Local storage will be used to keep track of user's tasks
+#### The delete button will remove the task card from the screen and from the local storage
 
-![TaskBoard](#)
 
+### Example of what the board would look like with all 4 colors:
+![TaskBoardComplete](./assets/images/taskboardcomplete.png)
+### Task represent:
+#### -Red = overdue
+#### -Yellow = due today
+#### -Blue = due at a later date
+#### -Green = completed
 ## Links
 
 [Task Board](https://djinjones.github.io/Task-Board/)

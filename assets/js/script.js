@@ -25,12 +25,12 @@ function generateTaskId() {
 function createTaskCard(task) {
 
 const newCard = $('<li>').css('width', '18rem').css('z-index', '50').attr('data-taskId', task.id).addClass("taskCard");
-const newCardBody = $('<div>').addClass("card-body draggable").attr('taskId', task.id).css('border', 'solid black 1px');
+const newCardBody = $('<div>').addClass("card-body draggable").attr('data-taskId', task.id).css('border', 'solid black 1px');
 const newTaskName = $('<h5>').addClass("card-title").text(task.title);
-const newDueDateField = $('<p>').addClass("card-text").text(task.dueDate);
-const newStatus = $('<p>').addClass("card-text cardStatusText").text(task.status);
+const newDueDateField = $('<p>').addClass("card-text").text("Due on " + task.dueDate);
+const newStatus = $('<p>').addClass("card-text cardStatusText").text("Status: " + task.status);
 const newDescription = $('<p>').addClass("card-text").text(task.description);
-const newDeleteButton = $('<button>').addClass("btn btn-danger custom-delete-btn deleteBtn").text('delete').attr('data-task-id', task.id);
+const newDeleteButton = $('<button>').addClass("btn btn-danger custom-delete-btn deleteBtn").text('delete').attr('data-taskId', task.id);
 
 
 
@@ -43,7 +43,7 @@ if (task.dueDate && task.status !== 'done') {
       newCard.addClass('bg-danger text-white card draggable');
     } else {newCard.addClass('card bg-info draggable')}
     
-} else {newCard.addClass('card bg-info draggable')}
+} else {newCard.addClass('card bg-success draggable')}
 
 newCardBody.append(newTaskName, $('<hr>'), newDueDateField, newStatus, newDescription, newDeleteButton);
 newCard.append(newCardBody);
@@ -56,6 +56,10 @@ return newCard;
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {  
+
+    todoList.empty();
+    inProgressList.empty();
+    doneList.empty();
     
     $(function() {
         $(".taskCard").draggable({
@@ -67,11 +71,12 @@ function renderTaskList() {
     let tasks = JSON.parse(localStorage.getItem('tasks'))
     if (!tasks) {tasks = []}
     for (let task of tasks) {
-        if (task.status == 'notStarted'){
+        if (task.status == "notStarted"){
             todoList.append(createTaskCard(task));
-        } else if (task.status == 'inProgress'){
+        } else if (task.status == "inProgress"){
             inProgressList.append(createTaskCard(task));
-        } else if (task.status == 'done'){
+        } else if (task.status == "done"){
+            
             doneList.append(createTaskCard(task));
         }
         
@@ -100,7 +105,7 @@ const newTask = {
     dueDate: taskdueDate,
     description: taskDescription,
     id: generateTaskId(),
-    status: "done",
+    status: "notStarted",
 }
 if (taskList==null) {taskList=[]}
 taskList.push(newTask);
@@ -133,16 +138,17 @@ tasks = JSON.stringify(tasks);
 localStorage.setItem('tasks', tasks)
 location.reload();
 }
-
+// let taskId;
 // $(".taskCard").on('click', function(){
-//     let taskId = $(this).attr('taskId')
-// })
+//     taskId = $(this).attr('taskId')
+//     console.log(taskId)})
+
+
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
     
-
-     const tasks = JSON.parse(localStorage.getItem('tasks'));
-     let taskId = ui.draggable[0].dataset.taskId;
+     const tasks = JSON.parse(localStorage.getItem('tasks'));    
+     let taskId = ui.draggable[0].dataset.taskid;
      let dropStatus = $(this).attr('data-status')
     
      console.log(dropStatus)
@@ -153,7 +159,7 @@ for (let task of tasks){
     }    
 }
 localStorage.setItem('tasks', JSON.stringify(tasks));
-
+renderTaskList();
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
@@ -171,11 +177,6 @@ $(document).ready(function () {
         drop: handleDrop,
     });
     
-    // var $draggable = $(".taskCard");
-    // $($draggable).draggable({
-    //     cancel: ".deleteBtn", // clicking an icon won't initiate dragging
-    //     revert: "invalid", // when not dropped, the item will revert back to its initial position 
-    //   });
 });
 
 $('.tripleList').on('click', '.deleteBtn', handleDeleteTask)
