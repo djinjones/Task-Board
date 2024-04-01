@@ -3,6 +3,10 @@ body {
   font-size: 16px;
 }
 
+.lane {
+  min-height: 600px;
+}
+
 .swim-lanes {
   min-height: 60vh;
 }
