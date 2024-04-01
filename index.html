@@ -18,21 +18,52 @@
 <body>
   <header class="p-4 mb-4 text-center border-bottom border-5">
     <h1 class="display-3">Task Board</h1>
-    <p class="lead">A simple Kanban board for task management</p>
+    <p class="lead">A simple board for task management</p>
   </header>
   <div class="container">
     <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
-    <!-- Todo: Create a modal with a form to add tasks -->
+   
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New Task</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="taskForm">
+              <div class="row">
+              <div class="mb-3 col-6">
+                <label for="taskTitle" class="col-form-label">Task Title:</label>
+                <input type="text" class="form-control" id="taskTitle">
+              </div>
+              <div class="mb-3 col-6">
+                <label for="dueDate" class="col-form-label">Task Dute Date:</label>
+                <input type="text" class="form-control" id="dueDate">
+              </div>
+            </div>
+              <div class="mb-3">
+                <label for="taskDescription" class="col-form-label">Task Description:</label>
+                <textarea class="form-control" id="taskDescription"></textarea>
+              </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center ">
+            <input for="submit" type="submit" class="btn btn-primary submit" style="background-color: var(--bs-success);" value="Add Task"/>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
         <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
           <div class="card-header bg-white">
-            <h2 class="card-title mb-1">To Do</h2>
+            <h2 class="card-title mb-1">Not Started</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="todo-cards"></div>
+            <div class="lane" id="todo-cards"></div>
           </div>
         </div>
       </div>
@@ -42,7 +73,7 @@
             <h2 class="card-title mb-1">In Progress</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="in-progress-cards"></div>
+            <div class="lane" id="in-progress-cards"></div>
           </div>
         </div>
         </div>
@@ -52,7 +83,7 @@
               <h2 class="card-title mb-1">Done</h2>
             </div>
             <div class="card-body bg-light">
-              <div id="done-cards"></div>
+              <div class="lane" id="done-cards"></div>
           </div>
           </div>
       </div>
