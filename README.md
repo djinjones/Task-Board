@@ -31,7 +31,7 @@ This is a simple website for creating and storing tasks. It also gives the abili
 
 ## Links
 
-[Dan Jones Personal Blog](https://djinjones.github.io/Task-Board/)
+[Task Board](https://djinjones.github.io/Task-Board/)
 
 ## API
 
